@@ -596,6 +596,13 @@ core.fsyncMethod::
 * `writeout-only` issues pagecache writeback requests, but depending on the
   filesystem and storage hardware, data added to the repository may not be
   durable in the event of a system crash. This is the default mode on macOS.
+* `batch` enables an experimental mode that uses interfaces available in some
+  operating systems to write loose object data with a minimal set of FLUSH
+  CACHE (or equivalent) commands sent to the storage controller. If the
+  operating system interfaces are not available, this mode behaves the same as
+  `true`. This mode is expected to be as safe as `true` on macOS for repos
+  stored on HFS+ or APFS filesystems and on Windows for repos stored on NTFS or
+  ReFS.
 
 core.fsyncObjectFiles::
 	This boolean will enable 'fsync()' when writing object files.
@@ -604,7 +611,6 @@ core.fsyncObjectFiles::
 This setting affects data added to the Git repository in loose-object
 form. When set to true, Git will issue an fsync or similar system call
 to flush caches so that loose-objects remain consistent in the face
-of a unclean system shutdown.
 
 core.preloadIndex::
 	Enable parallel index preload for operations like 'git diff'
