@@ -587,6 +587,7 @@ int git_fsync(int fd, enum fsync_action action)
 						 SYNC_FILE_RANGE_WAIT_AFTER);
 #endif
 
+
 #ifdef fsync_no_flush
 		return fsync_no_flush(fd);
 #endif
