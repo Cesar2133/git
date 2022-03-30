@@ -56,17 +56,12 @@ void fprintf_or_die(FILE *f, const char *fmt, ...)
 	}
 }
 
-int fsync_loose_object_bulk_checkin(int fd);
-
 static int maybe_fsync(int fd)
 {
 	if (use_fsync < 0)
 		use_fsync = git_env_bool("GIT_TEST_FSYNC", 1);
 	if (!use_fsync)
 		return 0;
-
-	if (fsync_method == FSYNC_METHOD_BATCH)
-		return fsync_loose_object_bulk_checkin(fd);
 
 	if (fsync_method == FSYNC_METHOD_WRITEOUT_ONLY &&
 	    git_fsync(fd, FSYNC_WRITEOUT_ONLY) >= 0)

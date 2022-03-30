@@ -1,6 +1,5 @@
 #include "builtin.h"
 #include "cache.h"
-#include "bulk-checkin.h"
 #include "config.h"
 #include "object-store.h"
 #include "object.h"
@@ -504,12 +503,10 @@ static void unpack_all(void)
 	if (!quiet)
 		progress = start_progress(_("Unpacking objects"), nr_objects);
 	CALLOC_ARRAY(obj_list, nr_objects);
-	plug_bulk_checkin();
 	for (i = 0; i < nr_objects; i++) {
 		unpack_one(i);
 		display_progress(progress, i + 1);
 	}
-	unplug_bulk_checkin();
 	stop_progress(&progress);
 
 	if (delta_list)

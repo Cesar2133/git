@@ -1040,8 +1040,7 @@ extern int use_fsync;
 
 enum fsync_method {
 	FSYNC_METHOD_FSYNC,
-	FSYNC_METHOD_WRITEOUT_ONLY,
-	FSYNC_METHOD_BATCH
+	FSYNC_METHOD_WRITEOUT_ONLY
 };
 
 extern enum fsync_method fsync_method;
